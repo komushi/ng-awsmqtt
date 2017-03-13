@@ -1,0 +1,29 @@
+{
+  "name": "ng-awsmqtt",
+  "version": "0.1.0",
+  "description": "AngularJS Wrapper for aws-mqtt-browser",
+  "main": "src/ng-awsmqtt.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-uglify": "^1.0.1",
+    "grunt-standard": "^2.0.0"
+  },
+  "scripts": {
+    "build": "grunt --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/komushi/ng-awsmqtt.git"
+  },
+  "keywords": [
+    "aws",
+    "IoT",
+    "MQTT",
+    "Websocket"
+  ],
+  "author": "Lei Xu <komushi@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/komushi/ng-awsmqtt"
+}

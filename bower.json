@@ -1,0 +1,28 @@
+{
+  "name": "ng-awsmqtt",
+  "version": "0.1.0",
+  "homepage": "https://github.com/komushi/ng-awsmqtt",
+  "authors": [
+    "Lei Xu <komushi@gmail.com>"
+  ],
+  "description": "AngularJS Wrapper for aws-mqtt",
+  "main": "src/ng-awsmmqtt.js",
+  "keywords": [
+    "aws",
+    "IoT",
+    "MQTT",
+    "Websocket"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6",
+    "aws-mqtt-browser": "^0.0.1"
+  }
+}
