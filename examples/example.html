@@ -92,7 +92,7 @@ app.controller('mqttController', ['$scope', '$mqtt', function($scope, $mqtt){
 			      <div class="panel-body">
 			   	    <div class="form-group">
 			          <label for="endpoint">Endpoint URL:</label>
-			          <input type="text" class="form-control" id="endpoint" placeholder="<endpointid>.iot.<region>.amazonaws.com" ng-model="awsMqtt.endpoint">
+			          <input type="text" class="form-control" id="endpoint" placeholder="endpointid.iot.region.amazonaws.com" ng-model="awsMqtt.endpoint">
 			          <label for="accessKeyId">accessKeyId:</label>
 			          <input type="text" class="form-control" id="accessKeyId" placeholder='AccessKeyId' ng-model="awsMqtt.accessKeyId">
 			          <label for="secretAccessKey">secretAccessKey:</label>
