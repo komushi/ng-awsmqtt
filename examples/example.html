@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Angular StompJS Demo</title>
+		<title>Angular AWS MQTT Demo</title>
 		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
 
 		<!-- <base href="/"> -->
@@ -59,12 +59,17 @@ app.controller('mqttController', ['$scope', '$mqtt', function($scope, $mqtt){
 
     // Send a message
     $scope.send = function () {
-        $mqtt.send($scope.awsMqtt.name, $scope.awsMqtt.pubdest, JSON.parse($scope.awsMqtt.payload));
+    	
+  		// use JSON.parse($scope.awsMqtt.payload) to send JSON string
+      $mqtt.send($scope.awsMqtt.name, $scope.awsMqtt.pubdest, $scope.awsMqtt.payload);
+
     };
 
     // notify callback function
     var showResponse = function (payload) {
         console.log(payload.topic, payload.message.toString('utf-8'));
+
+        $scope.rows.push({topic : payload.topic, message : payload.message.toString('utf-8') });
     };
 
     var initialize = function () {
@@ -78,6 +83,8 @@ app.controller('mqttController', ['$scope', '$mqtt', function($scope, $mqtt){
         $scope.awsMqtt.pubdest = 'iotbutton/001';
         $scope.awsMqtt.payload = '{"name":"Tom", "type":"Type0", "sales":50}';
         $scope.awsMqtt.name = 'aws_iot_mqtt_test';
+
+        $scope.rows = [];
     };
 
     initialize();
@@ -130,6 +137,23 @@ app.controller('mqttController', ['$scope', '$mqtt', function($scope, $mqtt){
 			      </div>
 			    </div>
 			  </div>
+			  <div class="col-md-9">
+			    <div class="panel panel-default">
+			      <div class="panel-body">
+							<table class="table">
+							  	<thead> 
+							  		<tr> <th>Topic</th> <th>Message</th> </tr> 
+						  		</thead>
+							  	<tbody> 
+									  <tr ng-repeat="row in rows">
+									    <td>{{ row.topic }}</td>
+									    <td>{{ row.message }}</td>
+									  </tr>
+						  		</tbody> 
+							</table>
+			      </div>
+	      	</div>
+      	</div>
 			</div>
 		</div>
 
