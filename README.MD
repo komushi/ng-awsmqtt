@@ -1,5 +1,5 @@
 # ng-awsmqtt
-## AWS Websocket MQTT client - Angular Service
+## AWS IoT MQTT client - Angular Service
 
 ## 1. Installation
 ### Install via Bower:
