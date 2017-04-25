@@ -107,9 +107,9 @@ app.controller('mqttController', ['$scope', '$mqtt', function($scope, $mqtt){
             });        
     };
     
-    // Subscribe to a topic
+    // Subscribe a topic
     $scope.subscribe = function () {
-        $mqtt.subscribe($scope.awsMqtt.name, $scope.awsMqtt.subdest)
+        $mqtt.subscribe($scope.awsMqtt.name, $scope.awsMqtt.topic)
             .then(function (message) {
                 console.log(JSON.stringify(message));
             })
@@ -119,9 +119,9 @@ app.controller('mqttController', ['$scope', '$mqtt', function($scope, $mqtt){
     };
 
 
-    // Unsubscribe from a topic
+    // Unsubscribe a topic
     $scope.unsubscribe = function () {
-        $mqtt.unsubscribe($scope.awsMqtt.name, $scope.awsMqtt.subdest)
+        $mqtt.unsubscribe($scope.awsMqtt.name, $scope.awsMqtt.topic)
             .then(function (message) {
                 console.log(JSON.stringify(message));
             })
@@ -132,25 +132,30 @@ app.controller('mqttController', ['$scope', '$mqtt', function($scope, $mqtt){
 
     // Send a message
     $scope.send = function () {
-        $mqtt.send($scope.awsMqtt.name, $scope.awsMqtt.pubdest, JSON.parse($scope.awsMqtt.payload));
+
+        // use JSON.parse($scope.awsMqtt.payload) to send JSON string
+      $mqtt.send($scope.awsMqtt.name, $scope.awsMqtt.topic, $scope.awsMqtt.payload);
     };
 
     // notify callback function
     var showResponse = function (payload) {
         console.log(payload.topic, payload.message.toString('utf-8'));
+
+        $scope.rows.push({topic : payload.topic, message : payload.message.toString('utf-8') });
     };
 
     var initialize = function () {
         $scope.awsMqtt = {}
 
-        $scope.awsMqtt.region = 'region';
-        $scope.awsMqtt.endpoint = 'endpointid.iot.region.amazonaws.com';
-        $scope.awsMqtt.accessKeyId = 'AccessKeyId';
-        $scope.awsMqtt.secretAccessKey = 'SecretAccessKey';
-        $scope.awsMqtt.subdest = 'topic';
-        $scope.awsMqtt.pubdest = 'topic';
+        $scope.awsMqtt.region = 'ap-northeast-1';
+        $scope.awsMqtt.endpoint = 'yourendpoint.iot.ap-northeast-1.amazonaws.com';
+        $scope.awsMqtt.accessKeyId = 'yourkeyid';
+        $scope.awsMqtt.secretAccessKey = 'yoursecret';
+        $scope.awsMqtt.topic = 'iotbutton/001';
         $scope.awsMqtt.payload = '{"name":"Tom", "type":"Type0", "sales":50}';
         $scope.awsMqtt.name = 'aws_iot_mqtt_test';
+
+        $scope.rows = [];
     };
 
     initialize();

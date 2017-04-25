@@ -1,7 +1,7 @@
 /**
  * ng-awsmqtt
  *
- * @version 0.1.1
+ * @version 0.1.2
  * @author Lei Xu <komushi@gmail.com>
  * @license MIT
  */
@@ -125,6 +125,18 @@
         }
         return dfd.promise
       }
+
+      this.isConnected = function (name) {
+
+        if (mqttClients[name]) {
+          if (mqttClients[name].connected){
+            return true
+          }
+        }
+
+        return false
+      }
+
     }]
   )
 }))

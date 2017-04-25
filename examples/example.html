@@ -24,13 +24,7 @@ app.controller('mqttController', ['$scope', '$mqtt', function($scope, $mqtt){
 	// Connect
     $scope.connect = function () {
     	$mqtt.connect($scope.awsMqtt.name, $scope.awsMqtt.endpoint, $scope.awsMqtt.region, $scope.awsMqtt.accessKeyId, $scope.awsMqtt.secretAccessKey)
-            .then(function(frame) {
-            	console.log('connected frame', frame);
-            }, 
-            function(error) {
-            	console.log('error', error);
-            },
-            showResponse);
+            .then(null, null, showResponse);
     };
 
     // Disconnect
@@ -87,7 +81,6 @@ app.controller('mqttController', ['$scope', '$mqtt', function($scope, $mqtt){
         $scope.awsMqtt.secretAccessKey = 'yoursecret';
         $scope.awsMqtt.topic = 'iotbutton/001';
         $scope.awsMqtt.payload = '{"name":"Tom", "type":"Type0", "sales":50}';
-        $scope.awsMqtt.headers = '{}';
         $scope.awsMqtt.name = 'aws_iot_mqtt_test';
 
         $scope.rows = [];
