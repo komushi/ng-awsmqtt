@@ -129,7 +129,7 @@
       this.isConnected = function (name) {
 
         if (mqttClients[name]) {
-          if (mqttClients[name].connected){
+          if (mqttClients[name].connected && !mqttClients[name].disconnecting){
             return true
           }
         }
