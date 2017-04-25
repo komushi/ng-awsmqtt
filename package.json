@@ -1,6 +1,6 @@
 {
   "name": "ng-awsmqtt",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "AngularJS Wrapper for aws-mqtt-browser",
   "main": "src/ng-awsmqtt.js",
   "dependencies": {

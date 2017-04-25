@@ -10,6 +10,7 @@
 		<script src="https://rawgit.com/komushi/aws-mqtt-browser/master/lib/aws-mqtt-browser.js"></script>
 		<!-- ng-awsmqtt -->
 		<script src="https://rawgit.com/komushi/ng-awsmqtt/master/dist/ng-awsmqtt.min.js"></script>
+		<!-- <script src="ng-awsmqtt.js"></script> -->
 
 	</head>
 
@@ -23,7 +24,13 @@ app.controller('mqttController', ['$scope', '$mqtt', function($scope, $mqtt){
 	// Connect
     $scope.connect = function () {
     	$mqtt.connect($scope.awsMqtt.name, $scope.awsMqtt.endpoint, $scope.awsMqtt.region, $scope.awsMqtt.accessKeyId, $scope.awsMqtt.secretAccessKey)
-            .then(null, null, showResponse);
+            .then(function(frame) {
+            	console.log('connected frame', frame);
+            }, 
+            function(error) {
+            	console.log('error', error);
+            },
+            showResponse);
     };
 
     // Disconnect
@@ -36,7 +43,7 @@ app.controller('mqttController', ['$scope', '$mqtt', function($scope, $mqtt){
     
     // Subscribe a topic
     $scope.subscribe = function () {
-        $mqtt.subscribe($scope.awsMqtt.name, $scope.awsMqtt.subdest)
+        $mqtt.subscribe($scope.awsMqtt.name, $scope.awsMqtt.topic)
             .then(function (message) {
             	console.log(JSON.stringify(message));
             })
@@ -48,7 +55,7 @@ app.controller('mqttController', ['$scope', '$mqtt', function($scope, $mqtt){
 
     // Unsubscribe a topic
     $scope.unsubscribe = function () {
-        $mqtt.unsubscribe($scope.awsMqtt.name, $scope.awsMqtt.subdest)
+        $mqtt.unsubscribe($scope.awsMqtt.name, $scope.awsMqtt.topic)
             .then(function (message) {
             	console.log(JSON.stringify(message));
             })
@@ -59,10 +66,9 @@ app.controller('mqttController', ['$scope', '$mqtt', function($scope, $mqtt){
 
     // Send a message
     $scope.send = function () {
-    	
-  		// use JSON.parse($scope.awsMqtt.payload) to send JSON string
-      $mqtt.send($scope.awsMqtt.name, $scope.awsMqtt.pubdest, $scope.awsMqtt.payload);
 
+  		// use JSON.parse($scope.awsMqtt.payload) to send JSON string
+      $mqtt.send($scope.awsMqtt.name, $scope.awsMqtt.topic, $scope.awsMqtt.payload);
     };
 
     // notify callback function
@@ -76,12 +82,12 @@ app.controller('mqttController', ['$scope', '$mqtt', function($scope, $mqtt){
         $scope.awsMqtt = {}
 
         $scope.awsMqtt.region = 'ap-northeast-1';
-        $scope.awsMqtt.endpoint = '<endpointid>.iot.<region>.amazonaws.com';
-        $scope.awsMqtt.accessKeyId = 'AKIAI5C4SY1111111';
-        $scope.awsMqtt.secretAccessKey = 'fdgdfgte45345redsjxcgx7ctg3h45';
-        $scope.awsMqtt.subdest = 'iotbutton/001';
-        $scope.awsMqtt.pubdest = 'iotbutton/001';
+        $scope.awsMqtt.endpoint = 'yourendpoint.iot.ap-northeast-1.amazonaws.com';
+        $scope.awsMqtt.accessKeyId = 'yourkeyid';
+        $scope.awsMqtt.secretAccessKey = 'yoursecret';
+        $scope.awsMqtt.topic = 'iotbutton/001';
         $scope.awsMqtt.payload = '{"name":"Tom", "type":"Type0", "sales":50}';
+        $scope.awsMqtt.headers = '{}';
         $scope.awsMqtt.name = 'aws_iot_mqtt_test';
 
         $scope.rows = [];
@@ -114,25 +120,15 @@ app.controller('mqttController', ['$scope', '$mqtt', function($scope, $mqtt){
 			    <div class="panel panel-default">
 			      <div class="panel-body">
 			        <div class="form-group">
-			          <label for="queue">Sub Dest</label>
-			          <input type="text" class="form-control" id="subdest" placeholder='/topic' ng-model="awsMqtt.subdest">
-			        </div>
-			        <div class="form-group">
-			          <button ng-click="subscribe()">Subscribe</button>
-			          <button ng-click="unsubscribe()">Unsubscribe</button>
-			        </div>
-			      </div>
-			    </div>
-			    <div class="panel panel-default">
-			      <div class="panel-body">
-			        <div class="form-group">
-			          <label for="queue">Pub Dest</label>
-			          <input type="text" class="form-control" id="pubdest" placeholder='/topic' ng-model="awsMqtt.pubdest">
+			          <label for="queue">Pub Topic</label>
+			          <input type="text" class="form-control" id="topic" placeholder='/topic' ng-model="awsMqtt.topic">
 			          <label for="body">Body</label>
 			          <textarea class="form-control" rows="2" id="payload" placeholder='{"key":"value"}' ng-model="awsMqtt.payload"></textarea>
 			        </div>
 			        <div class="form-group">
-			          <button ng-click="send()">Send</button>
+			          <button ng-click="subscribe()">Subscribe</button>
+			          <button ng-click="unsubscribe()">Unsubscribe</button>
+			          <button ng-click="send()">Publish</button>
 			        </div>
 			      </div>
 			    </div>

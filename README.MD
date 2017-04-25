@@ -157,3 +157,6 @@ app.controller('mqttController', ['$scope', '$mqtt', function($scope, $mqtt){
 
 }]);
 ```
+
+## TODO
+* Cognito Identity Pool - Unauthorized

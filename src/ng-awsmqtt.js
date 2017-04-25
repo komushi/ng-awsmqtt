@@ -1,7 +1,7 @@
 /**
  * ng-awsmqtt
  *
- * @version 0.1.0
+ * @version 0.1.1
  * @author Lei Xu <komushi@gmail.com>
  * @license MIT
  */
@@ -48,9 +48,9 @@
           clientId: 'mqtt-client-' + (Math.floor((Math.random() * 100000) + 1)), // clientId to register with MQTT broker. Need to be unique per client
         });
 
-        // mqttClients[name].on('connect', function(frame) {
-        //   dfd.resolve(frame)
-        // })
+        mqttClients[name].on('connect', function(frame) {
+          dfd.notify({topic: 'connack', message: JSON.stringify(frame)})
+        })
 
         // mqttClients[name].on('error', function(error) {
         //   dfd.reject(error)
