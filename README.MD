@@ -17,7 +17,7 @@ $ bower install ng-awsmqtt
 <script src="bower_components/ng-awsmqtt/dist/ng-awsmqtt.min.js"></script>
 ```
 
-### 2-2. Declate ng-awsmqtt as a dependency in your application
+### 2-2. Declare ng-awsmqtt as a dependency in your application
 ```
 var app =  angular.module('your-app', ['ng-awsmqtt']);
 ```
@@ -29,8 +29,8 @@ app.controller('your-controller', ['$scope', '$mqtt', function($scope, $mqtt){
 }
 ```
 
-### 2-3. Available Methods
-#### 2-3-1. Connect to an endpoint
+### 2-4. Available Methods
+#### 2-4-1. Connect to an endpoint
 ```
 $mqtt.connect('my-connection-to-endpoint1', 
     'abcdmyend123.iot.ap-northeast-1.amazonaws.com', 
@@ -43,7 +43,7 @@ $mqtt.connect('my-connection-to-endpoint1',
     });
 ```
 
-#### 2-3-2. Disconnect from an endpoint
+#### 2-4-2. Disconnect from an endpoint
 ```
 $mqtt.disconnect('my-connection-to-endpoint1',).then(
     function () {
@@ -51,7 +51,7 @@ $mqtt.disconnect('my-connection-to-endpoint1',).then(
     });   
 ```
 
-#### 2-3-3. Subscribe to a topic
+#### 2-4-3. Subscribe to a topic
 ```
 $mqtt.subscribe('my-connection-to-endpoint1', 'iotbutton/001')
     .then(function (message) {
@@ -64,7 +64,7 @@ $mqtt.subscribe('my-connection-to-endpoint1', 'iotbutton/001')
     });
 ```
 
-#### 2-3-4. Unsubscribe from a topic
+#### 2-4-4. Unsubscribe from a topic
 ```
 $mqtt.unsubscribe($scope.awsMqtt.name, $scope.awsMqtt.subdest)
     .then(function (message) {
@@ -77,7 +77,7 @@ $mqtt.unsubscribe($scope.awsMqtt.name, $scope.awsMqtt.subdest)
     });
 ```
 
-#### 2-3-5. Send message to a topic
+#### 2-4-5. Send message to a topic
 ```
 $mqtt.send('my-connection-to-endpoint1', 
     'iotbutton/002', 
