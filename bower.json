@@ -6,7 +6,7 @@
     "Lei Xu <komushi@gmail.com>"
   ],
   "description": "AngularJS Wrapper for aws-mqtt",
-  "main": "src/ng-awsmmqtt.js",
+  "main": "src/ng-awsmqtt.js",
   "keywords": [
     "aws",
     "IoT",
